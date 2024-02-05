@@ -1,7 +1,10 @@
-const Booking = require("../models/bookings.models")
-const Payment = require("../models/payments.models")
-const { bookingStatus, paymentStatus } = require("../utils/constants")
-//awrbjfvphncbyljr App password
+const Booking = require("../models/bookings.models");
+const Movie = require("../models/movie.models");
+const Payment = require("../models/payments.models");
+const { PaymentSucess } = require("../scripts/email.scripts");
+const { bookingStatus, paymentStatus } = require("../utils/constants");
+const { sendEmail } = require("../utils/notification");
+
 exports.createPyment= async (req,res)=>{
     // const{bookingId,status}=req.body
     const {bookingId, status, amount} = req.body;
@@ -36,55 +39,27 @@ exports.createPyment= async (req,res)=>{
             savedBooking.status = bookingStatus.confirmed;
 
             await savedBooking.save();
+            const movie = await Movie.findById(savedBooking.movieId)
+            const{subject,html,text}=PaymentSucess(req.user,savedBooking,movie)
+            sendEmail([req.user.email],subject,html,text)
         }
         if(payment.status ===paymentStatus.failed){
             savedBooking.status = bookingStatus.failed;
 
             await savedBooking.save();
         }
+        
 
         return res.status(200).send(payment);
     }
     catch(err){
 
-        return res.status(500).send({message:"Internal Server Error"});
+        return res.status(500).send({message:err.message});
     }
-
-    // try{
-    // const booking = Booking.findById(bookingId)
-    // const obj = {
-    //     bookingId,
-    //     status,
-    //     amount:booking.totalCost
-    // }
-    // const bookedTime=booking.createdAt
-    // const paymentTime = Date.now()
-    // const min =Math.floor(((paymentTime-bookedTime)/1000)/60)
-    // if(min>3){
-    //     booking.status=bookingStatus.expired
-    //     await booking.save()
-    //     return res.status(401).send({message:"Payment is expired, payment should be made in 3 min"})
-    // }
-    // const payment = await Payment.create(obj)
-    // if(payment.status===paymentStatus.success){
-    //     booking.status=bookingStatus.confirmed;
-    //     const savedBooking= await booking.save()
-    // }
-    // else if(payment.status===paymentStatus.failed){
-    //     booking.status=bookingStatus.failed
-    //     await booking.save()
-    // }
-    // return res.status(201).send(payment)
-    
-
-
-// }catch(err){
-//     return res.status(500).send(err)
-// }
-
 }
 
 
 exports.getPayments=(req,res)=>{
+    
    
 }
