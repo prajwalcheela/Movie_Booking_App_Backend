@@ -11,6 +11,8 @@ const bookingRoute=require("./src/routes/bookings.routes")
 const paymentRoute = require("./src/routes/payments.routes")
 const { DB_URL } = require("./configs/db.config");
 const { PORT } = require("./configs/server.config")
+
+
 mongoose.connect(DB_URL)
 .then(()=>{
     console.log("Successfully connected to the database");

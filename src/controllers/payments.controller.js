@@ -2,7 +2,7 @@ const Booking = require("../models/bookings.models");
 const Movie = require("../models/movie.models");
 const Payment = require("../models/payments.models");
 const { PaymentSucess } = require("../scripts/email.scripts");
-const { bookingStatus, paymentStatus } = require("../utils/constants");
+const { bookingStatus, paymentStatus, userTypes } = require("../utils/constants");
 const { sendEmail } = require("../utils/notification");
 
 exports.createPyment= async (req,res)=>{
@@ -59,7 +59,24 @@ exports.createPyment= async (req,res)=>{
 }
 
 
-exports.getPayments=(req,res)=>{
-    
+exports.getPayments=async (req,res)=>{
+
+    try{
+        if(req.user.userType===userTypes.ADMIN){
+            let payments =await Payment.find()
+            return res.status(200).send(payments)
+
+        }else{
+        const bookings= await Booking.find({userId:req.user._id})
+        obj={}
+        const bookingIds = bookings.map(b=>b._id)
+        obj.bookingId={$in:bookingIds}
+        // console.log(bookingIds,obj)
+        const payments = await Payment.find(obj)
+        return res.status(200).send(payments)
+        }
+    }catch(err){
+        return res.status(500).send({message:err.message})
+    }
    
 }
