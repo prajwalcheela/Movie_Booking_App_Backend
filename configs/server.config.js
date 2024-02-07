@@ -1,3 +1,3 @@
 module.exports={
-    PORT:process.env.PORT1
+    PORT:process.env.PORT
 }
