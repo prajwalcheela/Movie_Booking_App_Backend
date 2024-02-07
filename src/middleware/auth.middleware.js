@@ -1,6 +1,6 @@
 const User = require("../models/user.models");
 
-exports.verifySighUp=(req,res,next)=>{
+exports.verifySighUp=async (req,res,next)=>{
     const {name,email,password,userId,usertype}=req.body;
     if(!name){
         return res.status(400).send({message:"Name is required"})
@@ -14,12 +14,9 @@ exports.verifySighUp=(req,res,next)=>{
     if(!userId){
         return res.status(400).send({message:"userId is reqquired"})
     }
-    const user=User.find({
-        $or:[
-            {userId:userId},
-            {email:email}
-        ]})
-        if(user){
+    const u= await User.findOne({userId:userId})
+    
+        if(u){
             return res.status(400).send({message:"UserId or email already exists"})
         }
         next()
