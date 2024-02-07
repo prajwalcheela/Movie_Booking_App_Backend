@@ -19,7 +19,7 @@ exports.verifySighUp=(req,res,next)=>{
             {userId:userId},
             {email:email}
         ]})
-        if(!user){
+        if(user){
             return res.status(400).send({message:"UserId or email already exists"})
         }
         next()
