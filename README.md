@@ -29,6 +29,12 @@ Before running this application, ensure you have the following installed:
 ## API Documentation
 
 https://documenter.getpostman.com/view/31976581/2s9Yyy9eeV
+## Deployment
+
+- __base url link__ : https://movie-booking-gsb3.onrender.com
+- __To get all movies__ : https://movie-booking-gsb3.onrender.com/mba/api/movies
+- go through the api documentatin for remaining API endpoints.
+
 ## Contact
 
 For any inquiries or suggestions, contact prajwalcheela7@gmail.com
