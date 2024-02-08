@@ -1,11 +1,11 @@
 const PaymentSucess=(user,booking,movie)=>{
     return{
-        subject:`Hooray ! Your booking is conformed`,
+        subject:`Hooray ! Your booking is confirmed`,
         html:`
         <div>
         <h3>Hey ${user.name}</h3>
         <br/>
-        <p>Your booking is conformed for ${movie.name}.</p>
+        <p>Your booking is confirmed for ${movie.name}.</p>
         <hr/>
         <h4>Booking Details<h4/>
         <br/>
