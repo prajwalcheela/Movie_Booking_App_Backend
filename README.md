@@ -24,8 +24,7 @@ Before running this application, ensure you have the following installed:
 - EMAIL_ID 
 - EMAIL_PASS (Application password created in google security)
 ## Running the Server
-
-- npm start or yarn start
+- npm run dev
 ## API Documentation
 
 https://documenter.getpostman.com/view/31976581/2s9Yyy9eeV
