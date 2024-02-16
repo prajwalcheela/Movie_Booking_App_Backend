@@ -22,7 +22,7 @@ mongoose.connect(DB_URL)
 })
 
 
-
+console.log("hello")
 // var {productData} =require("./data")
 const app=express()
 app.use(bodyParser.json())

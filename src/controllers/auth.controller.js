@@ -5,7 +5,7 @@ const { userTypes,userStatus } = require("../utils/constants")
 const bcrypt=require("bcrypt")
 const jwt = require("jsonwebtoken")
 
-
+ 
 exports.signUp= async (req,res)=>{
     const {name,email,password,userId,userType}=req.body
 
