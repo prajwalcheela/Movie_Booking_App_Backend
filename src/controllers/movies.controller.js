@@ -50,7 +50,7 @@ exports.deleteMovie=async(req,res)=>{
 
 
 
-exports.getAllMovies= async (rez,res)=>{
+exports.getAllMovies= async (req,res)=>{
     try{
         let movies = await Movie.find()
         if(!movies){
